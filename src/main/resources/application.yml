@@ -1,0 +1,18 @@
+spring:
+  #环境 dev:开发环境|prod:生产环境
+  profiles:
+    active: dev #激活的配置文件
+  datasource:
+    url: #部署数据库地址
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:dataImpl/*/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+server:
+  max-http-header-size: 102400
+  port: 8001
