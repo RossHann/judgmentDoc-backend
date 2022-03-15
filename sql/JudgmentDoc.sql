@@ -70,9 +70,9 @@ CREATE TABLE `article`
     `content` varchar(500) NOT NULL COMMENT '全文',
     `number` varchar(100) NOT NULL COMMENT '第XXX条（之X）',
     `crime` varchar(100) NOT NULL COMMENT '罪名：以,隔开',
-    `part_id` int NOT NULL COMMENT '编id',
-    `chapter_id` int NOT NULL COMMENT '章id',
-    `section_id` int NOT NULL COMMENT '节id',
+    `part_id` bigint(20) NOT NULL COMMENT '编id',
+    `chapter_id` bigint(20) NOT NULL COMMENT '章id',
+    `section_id` bigint(20) NOT NULL COMMENT '节id',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
@@ -1137,7 +1137,7 @@ CREATE TABLE `article_chapter`
 (
     `id` bigint(20) NOT NULL AUTO_INCREMENT,
     `name` varchar(100) NOT NULL COMMENT '章名',
-    `part_id` int NOT NULL COMMENT '编id',
+    `part_id` bigint(20) NOT NULL COMMENT '编id',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
@@ -1196,7 +1196,7 @@ CREATE TABLE `article_section`
 (
     `id` bigint(20) NOT NULL AUTO_INCREMENT,
     `name` varchar(100) NOT NULL COMMENT '节名',
-    `chapter_id` int NOT NULL COMMENT '章id',
+    `chapter_id` bigint(20) NOT NULL COMMENT '章id',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1

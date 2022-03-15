@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.judgmentdoc.data.article.ArticleMapper">
+
+    <select id="getAll" resultMap="Article">
+        select *
+        from article
+    </select>
+
+    <resultMap id="Article" type="com.example.judgmentdoc.po.Article">
+        <id column="id" property="id"></id>
+        <result column="content" property="content"></result>
+        <result column="number" property="number"></result>
+        <result column="crime" property="crime"></result>
+        <result column="part_id" property="part_id"></result>
+        <result column="chapter_id" property="chapter_id"></result>
+        <result column="section_id" property="section_id"></result>
+    </resultMap>
+</mapper>
