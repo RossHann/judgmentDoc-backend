@@ -5,9 +5,8 @@ public class Article {
     private String content;
     private String number;
     private String crime;
-    private Long part_id;
-    private Long chapter_id;
-    private Long section_id;
+    private Long catalogId;
+    private String law;
 
     public Article() {
     }
@@ -44,27 +43,19 @@ public class Article {
         this.crime = crime;
     }
 
-    public Long getPart_id() {
-        return part_id;
+    public Long getCatalogId() {
+        return catalogId;
     }
 
-    public void setPart_id(Long part_id) {
-        this.part_id = part_id;
+    public void setCatalogId(Long catalogId) {
+        this.catalogId = catalogId;
     }
 
-    public Long getChapter_id() {
-        return chapter_id;
+    public String getLaw() {
+        return law;
     }
 
-    public void setChapter_id(Long chapter_id) {
-        this.chapter_id = chapter_id;
-    }
-
-    public Long getSection_id() {
-        return section_id;
-    }
-
-    public void setSection_id(Long section_id) {
-        this.section_id = section_id;
+    public void setLaw(String law) {
+        this.law = law;
     }
 }
