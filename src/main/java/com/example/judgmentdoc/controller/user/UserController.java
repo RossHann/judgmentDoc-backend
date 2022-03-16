@@ -1,8 +1,8 @@
 package com.example.judgmentdoc.controller.user;
 
 import com.example.judgmentdoc.bl.user.UserService;
+import com.example.judgmentdoc.po.User;
 import com.example.judgmentdoc.vo.ResponseVO;
-import com.example.judgmentdoc.vo.UserVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private static final String LOGIN_ERROR = "登录出错";
+    private static final String REGISTER_ERROR = "注册失败";
 
     @Autowired
     UserService userService;
@@ -23,10 +24,21 @@ public class UserController {
     public ResponseVO login(@RequestParam String username,
                             @RequestParam String password) {
         try {
-            return userService.login(new UserVO(username, password));
+            return userService.login(username, password);
         } catch (Exception e) {
             System.out.println(e);
             return ResponseVO.buildFailure(LOGIN_ERROR);
+        }
+    }
+
+    @ApiOperation(value = "注册")
+    @PostMapping("/register")
+    public ResponseVO register(@RequestBody User user) {
+        try {
+            return userService.register(user);
+        }  catch (Exception e) {
+            System.out.println(e);
+            return ResponseVO.buildFailure(REGISTER_ERROR);
         }
     }
 }

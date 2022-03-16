@@ -3,15 +3,22 @@
 <mapper namespace="com.example.judgmentdoc.data.user.UserMapper">
 
     <select id="getUserByUsername" resultMap="User">
-        select id, username, password, role
+        select *
         from user
         where username = #{username}
     </select>
+
+    <insert id="insertUser" parameterType="com.example.judgmentdoc.po.User" useGeneratedKeys="true" keyProperty="id">
+        insert into user(username, password, phone, email, role)
+        values (#{username}, #{password}, #{phone}, #{email}, #{role})
+    </insert>
 
     <resultMap id="User" type="com.example.judgmentdoc.po.User">
         <id column="id" property="id"></id>
         <result column="username" property="username"></result>
         <result column="password" property="password"></result>
+        <result column="phone" property="phone"></result>
+        <result column="email" property="email"></result>
         <result column="role" property="role"></result>
     </resultMap>
 </mapper>
