@@ -69,7 +69,7 @@ CREATE TABLE `article`
     `id` bigint(20) NOT NULL AUTO_INCREMENT,
     `content` varchar(500) NOT NULL COMMENT '全文',
     `number` varchar(100) NOT NULL COMMENT '第XXX条（之X）',
-    `crime` varchar(100) COMMENT '罪名：以,隔开',
+    `crime` varchar(100) COMMENT '主旨：以,隔开',
     `catalog_id` bigint(20) NOT NULL COMMENT '目录id',
     `law` varchar(100) NOT NULL COMMENT '所属法律名',
     PRIMARY KEY (`id`)
