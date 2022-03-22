@@ -12,4 +12,10 @@ public interface UserMapper {
     Long insertUser(User user);
 
     User getUserInfoById(Long userId);
+
+    int updateAvatarById(Long userId, String avatar);
+
+    int updateUserInfoById(User avatar);
+
+    int updatePasswordById(Long userId, String password);
 }

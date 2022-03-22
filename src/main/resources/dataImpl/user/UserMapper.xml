@@ -19,6 +19,25 @@
         values (#{username}, #{password}, #{phone}, #{email}, #{role}, #{avatar})
     </insert>
 
+    <update id="updateAvatarById">
+        update user
+        set avatar=#{avatar}
+        where id = #{userId}
+    </update>
+
+    <update id="updateUserInfoById" parameterType="com.example.judgmentdoc.po.User">
+        update user
+        set phone=#{phone},
+            email=#{email}
+        where id = #{id}
+    </update>
+
+    <update id="updatePasswordById">
+        update user
+        set password=#{password}
+        where id = #{userId}
+    </update>
+
     <resultMap id="User" type="com.example.judgmentdoc.po.User">
         <id column="id" property="id"></id>
         <result column="username" property="username"></result>
