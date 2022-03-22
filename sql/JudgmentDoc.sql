@@ -36,6 +36,7 @@ CREATE TABLE `user`
     `phone` varchar(20) NOT NULL COMMENT '手机号',
     `email` varchar(100) NOT NULL COMMENT '邮箱',
     `role` int NOT NULL COMMENT '角色：0法官，1群众',
+    `avatar` varchar(100) COMMENT '头像',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
@@ -49,9 +50,9 @@ CREATE TABLE `user`
 BEGIN;
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 INSERT INTO user
-VALUES (1, 'panyue', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '18662209453', '3052899600@qq.com', 0);
+VALUES (1, 'panyue', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '18662209453', '3052899600@qq.com', 0, 'http://pyyybf.oss-cn-shanghai.aliyuncs.com/judgmentDoc/default/avatar.png');
 INSERT INTO user
-VALUES (2, 'hanzhuo', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '12345678900', '1783595600@qq.com', 1);
+VALUES (2, 'hanzhuo', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '12345678900', '1783595600@qq.com', 1, 'http://pyyybf.oss-cn-shanghai.aliyuncs.com/judgmentDoc/default/avatar.png');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 COMMIT;
 

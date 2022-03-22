@@ -7,6 +7,7 @@ public class User {
     private String phone;
     private String email;
     private int role;
+    private String avatar;
 
     public User() {
     }
@@ -57,5 +58,13 @@ public class User {
 
     public void setRole(int role) {
         this.role = role;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

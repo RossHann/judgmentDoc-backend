@@ -6,6 +6,7 @@ public class UserVO {
     private Long userId;
     private String username;
     private int role;
+    private String avatar;
 
     public UserVO() {
     }
@@ -14,6 +15,7 @@ public class UserVO {
         this.userId = user.getId();
         this.username = user.getUsername();
         this.role = user.getRole();
+        this.avatar = user.getAvatar();
     }
 
     public Long getUserId() {
@@ -38,5 +40,13 @@ public class UserVO {
 
     public void setRole(int role) {
         this.role = role;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

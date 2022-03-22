@@ -9,8 +9,8 @@
     </select>
 
     <insert id="insertUser" parameterType="com.example.judgmentdoc.po.User" useGeneratedKeys="true" keyProperty="id">
-        insert into user(username, password, phone, email, role)
-        values (#{username}, #{password}, #{phone}, #{email}, #{role})
+        insert into user(username, password, phone, email, role, avatar)
+        values (#{username}, #{password}, #{phone}, #{email}, #{role}, #{avatar})
     </insert>
 
     <resultMap id="User" type="com.example.judgmentdoc.po.User">
@@ -20,5 +20,6 @@
         <result column="phone" property="phone"></result>
         <result column="email" property="email"></result>
         <result column="role" property="role"></result>
+        <result column="avatar" property="avatar"></result>
     </resultMap>
 </mapper>
