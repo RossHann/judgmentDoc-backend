@@ -7,4 +7,6 @@ public interface UserService {
     ResponseVO login(String username, String password);
 
     ResponseVO register(User user);
+
+    ResponseVO getUserInfoById(Long userId);
 }

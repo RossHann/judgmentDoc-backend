@@ -40,4 +40,9 @@ public class UserServiceImpl implements UserService {
             return ResponseVO.buildFailure(USERNAME_EXIST);
         }
     }
+
+    @Override
+    public ResponseVO getUserInfoById(Long userId) {
+        return ResponseVO.buildSuccess(userMapper.getUserInfoById(userId));
+    }
 }

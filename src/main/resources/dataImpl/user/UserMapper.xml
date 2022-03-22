@@ -8,6 +8,12 @@
         where username = #{username}
     </select>
 
+    <select id="getUserInfoById" resultMap="User">
+        select id, username, phone, email, role, avatar
+        from user
+        where id = #{userId}
+    </select>
+
     <insert id="insertUser" parameterType="com.example.judgmentdoc.po.User" useGeneratedKeys="true" keyProperty="id">
         insert into user(username, password, phone, email, role, avatar)
         values (#{username}, #{password}, #{phone}, #{email}, #{role}, #{avatar})

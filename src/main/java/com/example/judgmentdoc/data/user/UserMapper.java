@@ -10,4 +10,6 @@ public interface UserMapper {
     User getUserByUsername(String username);
 
     Long insertUser(User user);
+
+    User getUserInfoById(Long userId);
 }
