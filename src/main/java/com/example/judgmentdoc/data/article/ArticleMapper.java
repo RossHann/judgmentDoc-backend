@@ -13,4 +13,6 @@ public interface ArticleMapper {
     List<Article> getAll(String keyword, String number, String crime, List<Long> catalogs);
 
     List<Catalog> getAllCatalog();
+
+    Article getArticleById(Long id);
 }

@@ -29,6 +29,12 @@
         from article_catalog
     </select>
 
+    <select id="getArticleById" resultMap="Article">
+        select *
+        from article
+        where id = #{id}
+    </select>
+
     <resultMap id="Article" type="com.example.judgmentdoc.po.Article">
         <id column="id" property="id"></id>
         <result column="content" property="content"></result>
