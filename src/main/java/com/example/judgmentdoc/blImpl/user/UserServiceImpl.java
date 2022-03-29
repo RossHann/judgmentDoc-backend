@@ -1,12 +1,13 @@
 package com.example.judgmentdoc.blImpl.user;
 
+import com.example.judgmentdoc.bl.oss.OssService;
 import com.example.judgmentdoc.bl.user.UserService;
 import com.example.judgmentdoc.data.user.UserMapper;
 import com.example.judgmentdoc.po.User;
-import com.example.judgmentdoc.util.aliOss.AliOssUtil;
 import com.example.judgmentdoc.vo.ResponseVO;
 import com.example.judgmentdoc.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,10 +20,15 @@ public class UserServiceImpl implements UserService {
     private static final String USER_NOT_EXIST = "用户不存在";
     private static final String USERNAME_EXIST = "用户名已存在";
     private static final String WRONG_PWD = "密码错误";
-    private static final String OSS_PREFIX_AVATAR = "http://pyyybf.oss-cn-shanghai.aliyuncs.com/judgmentDoc/avatars/";
+
+    @Value("${aliyun.oss.directory.avatars}")
+    private String DIRECTORY_AVATARS;
 
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    OssService ossService;
 
     @Override
     public ResponseVO login(String username, String password) {
@@ -59,8 +65,7 @@ public class UserServiceImpl implements UserService {
         String originalFileName = file.getOriginalFilename();
         String suffix = originalFileName.substring(originalFileName.lastIndexOf("."));
         String fileName = UUID.randomUUID().toString().replace("-", "") + suffix;
-        AliOssUtil.upload(file, "avatars/" + fileName);
-        String avatar = OSS_PREFIX_AVATAR + fileName;
+        String avatar = ossService.upload(file, DIRECTORY_AVATARS + fileName);
         return ResponseVO.buildSuccess(userMapper.updateAvatarById(userId, avatar));
     }
 
