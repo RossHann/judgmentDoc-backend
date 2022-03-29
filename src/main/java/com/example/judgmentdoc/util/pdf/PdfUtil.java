@@ -8,7 +8,7 @@ import java.io.*;
 
 public class PdfUtil {
 
-    private final static String FONT_PATH = "./src/main/resources/static/fonts/simsun.ttc,1";
+    private final static String FONT_PATH = "D:\\judgmentDoc\\backend\\src\\main\\resources\\static\\fonts\\simsun.ttc,1";
 
     /**
      * 返回PDF流

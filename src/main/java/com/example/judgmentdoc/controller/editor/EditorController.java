@@ -22,8 +22,8 @@ public class EditorController {
     EditorService editorService;
 
     @ApiOperation("导出裁判文书pdf")
-    @PostMapping("/exportPdf")
-    public void downloadStruct(@RequestBody DocInfoVO docInfoVO, HttpServletResponse response) {
+    @PostMapping("/export/pdf")
+    public void exportPdf(@RequestBody DocInfoVO docInfoVO, HttpServletResponse response) {
         try {
             String pdfPath = editorService.exportPdf(docInfoVO);
             PdfUtil.returnPdfStream(response, pdfPath);
