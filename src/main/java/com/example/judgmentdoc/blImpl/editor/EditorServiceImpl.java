@@ -16,7 +16,6 @@ import java.util.*;
 @Service
 public class EditorServiceImpl implements EditorService {
 
-    //    private final static String PDF_TEMPLATE_PATH = "./src/main/resources/static/pdfTemplate.pdf";
     private final static String PDF_TEMPLATE_PATH = "D:\\judgmentDoc\\backend\\src\\main\\resources\\templates\\pdfTemplate.pdf";
 
     @Autowired
