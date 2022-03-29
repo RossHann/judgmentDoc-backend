@@ -20,6 +20,7 @@ public class UserServiceImpl implements UserService {
     private static final String USER_NOT_EXIST = "用户不存在";
     private static final String USERNAME_EXIST = "用户名已存在";
     private static final String WRONG_PWD = "密码错误";
+    private static final String EMPTY_FILE = "文件为空";
 
     @Value("${aliyun.oss.directory.avatars}")
     private String DIRECTORY_AVATARS;
@@ -60,7 +61,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseVO updateAvatarById(Long userId, MultipartFile file) {
         if (file.isEmpty()) {
-            return ResponseVO.buildFailure("文件为空");
+            return ResponseVO.buildFailure(EMPTY_FILE);
         }
         String originalFileName = file.getOriginalFilename();
         String suffix = originalFileName.substring(originalFileName.lastIndexOf("."));
