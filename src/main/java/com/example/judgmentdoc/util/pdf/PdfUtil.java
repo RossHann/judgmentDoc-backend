@@ -2,56 +2,31 @@ package com.example.judgmentdoc.util.pdf;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
+@Component
 public class PdfUtil {
 
-    private final static String FONT_PATH = "D:\\judgmentDoc\\backend\\src\\main\\resources\\static\\fonts\\simsun.ttc,1";
+    private static String FONT_SIMSUN;
 
-    /**
-     * 返回PDF流
-     *
-     * @param response 相应设置
-     * @param pathName 水印文件路径和名称
-     * @throws Exception 异常
-     */
-    public static void returnPdfStream(HttpServletResponse response, String pathName) throws Exception {
-        response.setContentType("application/pdf");
-
-        File file = new File(pathName);
-        if (file.exists()) {
-            FileInputStream in = new FileInputStream(file);
-            OutputStream out = response.getOutputStream();
-            byte[] b = new byte[1024 * 5];
-            int n;
-            while ((n = in.read(b)) != -1) {
-                out.write(b, 0, n);
-            }
-            out.flush();
-            in.close();
-            out.close();
-        }
+    @Value("${directory.static.fonts.simsun}")
+    public void setTempExProduct(String fontSimsun) {
+        FONT_SIMSUN = fontSimsun;
     }
 
     /**
-     * 建立一个书写器(Writer)与document对象关联，通过书写器(Writer)可以将文档写入到磁盘中。
+     * 建立一个书写器(Writer)与document对象关联，通过书写器(Writer)可以将文档写入到磁盘中
      *
-     * @param pdfPath     保存路径
      * @param document    文档
      * @param pdfPathName 文件保存路径和名称
      * @return 书写器(Writer)
-     * @throws Exception
+     * @throws Exception 异常
      */
-    public static PdfWriter createPdfWriter(String pdfPath, Document document, String pdfPathName) throws Exception {
-
-        //判断文件夹是否存在
-        File file = new File(pdfPath);
-        if (!file.exists()) {
-            file.mkdir();
-        }
-        file = new File(pdfPathName);
+    public static PdfWriter createPdfWriter(String pdfPathName, Document document) throws Exception {
+        File file = new File(pdfPathName);
 
         PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));
         writer.setViewerPreferences(PdfWriter.PageModeUseThumbs);
@@ -60,13 +35,13 @@ public class PdfUtil {
     }
 
     /**
-     * 设置第一标题内容
+     * 设置标题内容
      *
-     * @param title    第一标题
+     * @param title    标题文本
      * @param document 文档
      * @throws Exception 异常
      */
-    public static void setPdfFirstTitle(String title, Document document) throws Exception {
+    public static void setPdfTitle(String title, Document document) throws Exception {
         Paragraph paragraph = new Paragraph(title, getPdfChineseFont(0));
         paragraph.setAlignment(Element.ALIGN_CENTER);
         paragraph.setSpacingAfter(2);
@@ -79,9 +54,9 @@ public class PdfUtil {
      * @param text            正文内容
      * @param document        文档
      * @param alignment       对齐方式
-     * @param firstLineIndent 第一行缩进
-     * @param spacingAfter    之后间隔
-     * @throws Exception
+     * @param firstLineIndent 首行缩进
+     * @param spacingAfter    段后间隔
+     * @throws Exception 异常
      */
     public static void setPdfMainBody(String text, Document document, int alignment, int firstLineIndent, int spacingAfter) throws Exception {
         Paragraph lsh = new Paragraph(text, getPdfChineseFont(1));
@@ -145,7 +120,7 @@ public class PdfUtil {
      */
     public static Font getPdfChineseFont(int type) throws Exception {
         // 使用系统字体
-        BaseFont bfChinese = BaseFont.createFont(FONT_PATH, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+        BaseFont bfChinese = BaseFont.createFont(FONT_SIMSUN, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
         Font font;
         if (type == 1) {
             font = new Font(bfChinese, 10, Font.NORMAL);
@@ -153,51 +128,5 @@ public class PdfUtil {
             font = new Font(bfChinese, 14, Font.BOLD);
         }
         return font;
-    }
-
-    /**
-     * 删除文件夹
-     *
-     * @param folderPath 文件路基
-     */
-    public static void delFolder(String folderPath) {
-        // 删除完里面所有内容
-        delAllFile(folderPath);
-        String filePath = folderPath;
-        filePath = filePath.toString();
-        File myFilePath = new File(filePath);
-        // 删除空文件夹
-        myFilePath.delete();
-    }
-
-    /**
-     * 删除指定文件夹下所有文件
-     *
-     * @param path 文件路基
-     * @return 是否成功
-     */
-    public static boolean delAllFile(String path) {
-        boolean flag = false;
-        File file = new File(path);
-        String[] tempList = file.list();
-        File temp = null;
-        for (int i = 0; i < tempList.length; i++) {
-            if (path.endsWith(File.separator)) {
-                temp = new File(path + tempList[i]);
-            } else {
-                temp = new File(path + File.separator + tempList[i]);
-            }
-            if (temp.isFile()) {
-                temp.delete();
-            }
-            if (temp.isDirectory()) {
-                // 先删除文件夹里面的文件
-                delAllFile(path + "/" + tempList[i]);
-                // 再删除空文件夹
-                delFolder(path + "/" + tempList[i]);
-                flag = true;
-            }
-        }
-        return flag;
     }
 }

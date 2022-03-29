@@ -9,6 +9,7 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfWriter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -16,7 +17,8 @@ import java.util.*;
 @Service
 public class EditorServiceImpl implements EditorService {
 
-    private final static String PDF_TEMPLATE_PATH = "D:\\judgmentDoc\\backend\\src\\main\\resources\\templates\\pdfTemplate.pdf";
+    @Value("${directory.temporary}")
+    private String TEMPORARY_PATH;
 
     @Autowired
     ArticleMapper articleMapper;
@@ -26,15 +28,15 @@ public class EditorServiceImpl implements EditorService {
         Document document = new Document();
         try {
             //创建书写器,写入磁盘
-            String pdfPathName = PDF_TEMPLATE_PATH;
-            PdfWriter writer = PdfUtil.createPdfWriter(pdfPathName, document, pdfPathName);
+            String pdfPathName = TEMPORARY_PATH + UUID.randomUUID().toString().replaceAll("-", "") + ".pdf";
+            PdfWriter writer = PdfUtil.createPdfWriter(pdfPathName, document);
             //设置A4
             document.setPageSize(PageSize.A4);
             document.open();
             //设置法院名
-            PdfUtil.setPdfFirstTitle(docInfoVO.getCourtName(), document);
+            PdfUtil.setPdfTitle(docInfoVO.getCourtName(), document);
             //设置文书名字
-            PdfUtil.setPdfFirstTitle(docInfoVO.getName(), document);
+            PdfUtil.setPdfTitle(docInfoVO.getName(), document);
             //设置案号
             PdfUtil.setPdfMainBody(docInfoVO.getNumber(), document, Element.ALIGN_RIGHT, 0, 0);
             //设置正文
@@ -43,19 +45,11 @@ public class EditorServiceImpl implements EditorService {
                 PdfUtil.setPdfMainBody(para.replace((char) 12288, ' ').replace((char) 160, ' ').trim(), document, Element.ALIGN_LEFT, 20, 0);
             }
             //设置落款人员
-            List<MemberVO> members = docInfoVO.getMembers();
-            Collections.sort(members);
-            for (MemberVO member : members) {
-                String m = member.getStatus();
-                if (member.getName().length() == 2) {
-                    m = m + "　" + member.getName().charAt(0) + "　" + member.getName().charAt(1);
-                } else {
-                    m = m + "　" + member.getName();
-                }
-                PdfUtil.setPdfMainBody(m, document, Element.ALIGN_RIGHT, 0, 0);
+            for (String member : docInfoVO.getMemberList()) {
+                PdfUtil.setPdfMainBody(member, document, Element.ALIGN_RIGHT, 0, 0);
             }
             //设置落款日期
-            PdfUtil.setPdfMainBody(dateToChinese(docInfoVO.getDate()), document, Element.ALIGN_RIGHT, 0, 0);
+            PdfUtil.setPdfMainBody(docInfoVO.getChineseDate(), document, Element.ALIGN_RIGHT, 0, 0);
 
             document.close();
             writer.close();

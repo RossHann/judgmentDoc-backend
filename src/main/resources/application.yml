@@ -30,3 +30,8 @@ aliyun:
     directory:
       root: judgmentDoc/
       avatars: avatars/
+
+directory:
+  static:
+    fonts:
+      simsun: D:/judgmentDoc/backend/src/main/resources/static/fonts/simsun.ttc,1

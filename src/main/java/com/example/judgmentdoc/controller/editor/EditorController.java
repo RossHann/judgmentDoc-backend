@@ -1,7 +1,7 @@
 package com.example.judgmentdoc.controller.editor;
 
 import com.example.judgmentdoc.bl.editor.EditorService;
-import com.example.judgmentdoc.util.pdf.PdfUtil;
+import com.example.judgmentdoc.util.file.FileUtil;
 import com.example.judgmentdoc.vo.DocInfoVO;
 import com.example.judgmentdoc.vo.ResponseVO;
 import io.swagger.annotations.Api;
@@ -26,7 +26,8 @@ public class EditorController {
     public void exportPdf(@RequestBody DocInfoVO docInfoVO, HttpServletResponse response) {
         try {
             String pdfPath = editorService.exportPdf(docInfoVO);
-            PdfUtil.returnPdfStream(response, pdfPath);
+            FileUtil.returnStream(response, pdfPath);
+            FileUtil.delFile(pdfPath);
         } catch (Exception e) {
             e.printStackTrace();
         }
