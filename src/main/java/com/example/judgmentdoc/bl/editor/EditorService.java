@@ -6,5 +6,7 @@ import com.example.judgmentdoc.vo.ResponseVO;
 public interface EditorService {
     String exportPdf(DocInfoVO docInfoVO);
 
+    String exportWord(DocInfoVO docInfoVO);
+
     ResponseVO check(String text);
 }

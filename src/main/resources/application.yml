@@ -35,3 +35,4 @@ directory:
   static:
     fonts:
       simsun: D:/judgmentDoc/backend/src/main/resources/static/fonts/simsun.ttc,1
+  temporary: D:/judgmentDoc/backend/src/main/resources/temporary/

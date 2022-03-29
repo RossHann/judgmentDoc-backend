@@ -20,6 +20,10 @@ public class FileUtil {
             case "pdf":
                 response.setContentType("application/pdf");
                 break;
+            case "docx":
+                response.setContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+                response.setHeader("content-disposition", "attachment;filename=document.docx");
+                break;
         }
 
         File file = new File(pathName);

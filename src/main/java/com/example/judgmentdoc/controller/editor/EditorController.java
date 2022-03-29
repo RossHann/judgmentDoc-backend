@@ -33,6 +33,18 @@ public class EditorController {
         }
     }
 
+    @ApiOperation("导出裁判文书word")
+    @PostMapping("/export/word")
+    public void exportWord(@RequestBody DocInfoVO docInfoVO, HttpServletResponse response) {
+        try {
+            String wordPath = editorService.exportWord(docInfoVO);
+            FileUtil.returnStream(response, wordPath);
+            FileUtil.delFile(wordPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @ApiOperation("检验裁判文书")
     @PostMapping("/check")
     public ResponseVO check(@RequestParam(value = "text", required = true) String text) {
