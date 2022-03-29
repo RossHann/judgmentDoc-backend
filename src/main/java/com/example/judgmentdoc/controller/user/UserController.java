@@ -29,7 +29,7 @@ public class UserController {
         try {
             return userService.login(username, password);
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
             return ResponseVO.buildFailure(LOGIN_ERROR);
         }
     }
@@ -40,7 +40,7 @@ public class UserController {
         try {
             return userService.register(user);
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
             return ResponseVO.buildFailure(REGISTER_ERROR);
         }
     }
@@ -51,7 +51,7 @@ public class UserController {
         try {
             return userService.getUserInfoById(userId);
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
             return ResponseVO.buildFailure(INFO_FETCH_ERROR);
         }
     }
@@ -63,7 +63,7 @@ public class UserController {
         try {
             return userService.updateAvatarById(userId, file);
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
             return ResponseVO.buildFailure(UPDATE_ERROR);
         }
     }
@@ -74,7 +74,7 @@ public class UserController {
         try {
             return userService.updateUserInfoById(userId, user);
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
             return ResponseVO.buildFailure(UPDATE_ERROR);
         }
     }
@@ -86,7 +86,7 @@ public class UserController {
         try {
             return userService.updatePasswordById(userId, password);
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
             return ResponseVO.buildFailure(UPDATE_ERROR);
         }
     }

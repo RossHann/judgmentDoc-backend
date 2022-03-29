@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
         try {
             return ResponseVO.buildSuccess(userMapper.insertUser(user));
         } catch (DuplicateKeyException e) {
-            System.out.println(e);
+            e.printStackTrace();
             return ResponseVO.buildFailure(USERNAME_EXIST);
         }
     }

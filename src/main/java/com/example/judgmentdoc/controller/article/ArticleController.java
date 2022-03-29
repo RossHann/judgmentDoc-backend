@@ -33,7 +33,7 @@ public class ArticleController {
         try {
             return articleService.getAll(keyword, number, crime,catalogs, pageNum, pageSize);
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
             return ResponseVO.buildFailure(GET_ERROR);
         }
     }
@@ -44,7 +44,7 @@ public class ArticleController {
         try {
             return articleService.getCatalogue();
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
             return ResponseVO.buildFailure(GET_ERROR);
         }
     }
