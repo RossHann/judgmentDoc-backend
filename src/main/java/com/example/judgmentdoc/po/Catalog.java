@@ -4,7 +4,6 @@ public class Catalog {
     private Long id;
     private String name;
     private Long parentId;
-    private int level;
 
     public Catalog() {
     }
@@ -33,11 +32,4 @@ public class Catalog {
         this.parentId = parentId;
     }
 
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
 }

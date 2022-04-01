@@ -47,6 +47,5 @@
         <id column="id" property="id"></id>
         <result column="name" property="name"></result>
         <result column="parent_id" property="parentId"></result>
-        <result column="level" property="level"></result>
     </resultMap>
 </mapper>
