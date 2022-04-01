@@ -79,7 +79,7 @@ public class EditorServiceImpl implements EditorService {
             //设置正文
             String[] contents = docInfoVO.getContent().split("\n");
             for (String para : contents) {
-                WordUtil.createParagraph(para, document, ParagraphAlignment.BOTH , 550, 15, "仿宋");
+                WordUtil.createParagraph(para, document, ParagraphAlignment.BOTH, 550, 15, "仿宋");
             }
             //设置落款人员
             for (String member : docInfoVO.getMemberList()) {
