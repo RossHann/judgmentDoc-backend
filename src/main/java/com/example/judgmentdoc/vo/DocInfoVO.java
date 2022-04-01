@@ -1,5 +1,7 @@
 package com.example.judgmentdoc.vo;
 
+import com.example.judgmentdoc.po.Member;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,7 +12,7 @@ public class DocInfoVO {
     private String name;
     private String number;
     private String date;
-    private List<MemberVO> members;
+    private List<Member> members;
 
     public DocInfoVO() {
     }
@@ -55,11 +57,11 @@ public class DocInfoVO {
         this.date = date;
     }
 
-    public List<MemberVO> getMembers() {
+    public List<Member> getMembers() {
         return members;
     }
 
-    public void setMembers(List<MemberVO> members) {
+    public void setMembers(List<Member> members) {
         this.members = members;
     }
 
@@ -98,7 +100,7 @@ public class DocInfoVO {
     public List<String> getMemberList() {
         List<String> memberList = new ArrayList<>();
         Collections.sort(this.members);
-        for (MemberVO member : this.members) {
+        for (Member member : this.members) {
             String m = member.getStatus();
             if (member.getName().length() == 2) {
                 m = m + "　" + member.getName().charAt(0) + "　" + member.getName().charAt(1);
