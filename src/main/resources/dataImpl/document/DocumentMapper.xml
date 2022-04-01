@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.judgmentdoc.data.document.DocumentMapper">
+
+    <select id="getAll" resultMap="Document">
+        select *
+        from document
+        <where>
+            <if test="keyword!=null and keyword!=''">
+                content like concat(concat('%',#{keyword}),'%')
+            </if>
+            <if test="courtName!=null and courtName!=''">
+                and court_name like concat(concat('%',#{courtName}),'%')
+            </if>
+            <if test="name!=null and name!=''">
+                and name like concat(concat('%',#{name}),'%')
+            </if>
+            <if test="number!=null and number!=''">
+                and number like concat(concat('%',#{number}),'%')
+            </if>
+            <if test="startDate!=null and startDate!=''">
+                and date>=#{startDate,jdbcType=DATE}
+            </if>
+            <if test="endDate!=null and endDate!=''">
+                and #{endDate,jdbcType=DATE}>=date
+            </if>
+            <if test="catalogs != null and catalogs.size() > 0">
+                and catalog_id in
+                <foreach collection="catalogs" item="item" index="index" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="getAllCatalog" resultMap="Catalog">
+        select *
+        from document_catalog
+    </select>
+
+    <select id="getDocumentById" resultMap="Document">
+        select *
+        from document
+        where id = #{id}
+    </select>
+
+    <select id="getMembersByDocumentId" resultMap="Member">
+        select *
+        from document_member
+        where document_id = #{documentId}
+    </select>
+
+    <resultMap id="Document" type="com.example.judgmentdoc.po.Document">
+        <id column="id" property="id"></id>
+        <result column="court_name" property="courtName"></result>
+        <result column="name" property="name"></result>
+        <result column="number" property="number"></result>
+        <result column="date" property="date"></result>
+        <result column="content" property="content"></result>
+        <result column="catalog_id" property="catalogId"></result>
+    </resultMap>
+    <resultMap id="Catalog" type="com.example.judgmentdoc.po.Catalog">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="parent_id" property="parentId"></result>
+    </resultMap>
+    <resultMap id="Member" type="com.example.judgmentdoc.po.Member">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="status" property="status"></result>
+        <result column="document_id" property="documentId"></result>
+    </resultMap>
+</mapper>
