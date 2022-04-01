@@ -6,7 +6,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component  // 项目启动时不重新训练模型，则注释此行
 public class MyApplicationRunner implements ApplicationRunner {
 
     @Autowired
