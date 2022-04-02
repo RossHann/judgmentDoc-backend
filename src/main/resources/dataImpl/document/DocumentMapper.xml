@@ -18,11 +18,11 @@
             <if test="number!=null and number!=''">
                 and number like concat(concat('%',#{number}),'%')
             </if>
-            <if test="startDate!=null and startDate!=''">
-                and date>=#{startDate,jdbcType=DATE}
+            <if test="startDate!=null">
+                and date_format(date,'%Y-%m-%d')>=#{startDate,jdbcType=DATE}
             </if>
-            <if test="endDate!=null and endDate!=''">
-                and #{endDate,jdbcType=DATE}>=date
+            <if test="endDate!=null">
+                and #{endDate,jdbcType=DATE}>=date_format(date,'%Y-%m-%d')
             </if>
             <if test="catalogs != null and catalogs.size() > 0">
                 and catalog_id in

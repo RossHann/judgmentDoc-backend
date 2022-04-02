@@ -3,6 +3,7 @@ package com.example.judgmentdoc.blImpl.document;
 import com.example.judgmentdoc.bl.document.DocumentService;
 import com.example.judgmentdoc.data.document.DocumentMapper;
 import com.example.judgmentdoc.po.Catalog;
+import com.example.judgmentdoc.po.Document;
 import com.example.judgmentdoc.util.tree.TreeUtil;
 import com.example.judgmentdoc.vo.PageVO;
 import com.example.judgmentdoc.vo.ResponseVO;
@@ -25,9 +26,14 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     public ResponseVO getAll(String keyword, String courtName, String name, String number, String start, String end, List<Long> catalogs, Integer pageNum, Integer pageSize) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date startDate = sdf.parse(start);
-        Date endDate = sdf.parse(end);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date startDate = null, endDate = null;
+        if (!start.isEmpty()) {
+            startDate = sdf.parse(start);
+        }
+        if (!end.isEmpty()) {
+            endDate = sdf.parse(end);
+        }
         PageHelper.startPage(pageNum, pageSize);
         return ResponseVO.buildSuccess(PageVO.restPage(documentMapper.getAll(keyword, courtName, name, number, startDate, endDate, catalogs)));
     }
@@ -44,6 +50,8 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     public ResponseVO getDocumentById(Long id) {
-        return ResponseVO.buildSuccess(documentMapper.getDocumentById(id));
+        Document document = documentMapper.getDocumentById(id);
+        document.setMembers(documentMapper.getMembersByDocumentId(id));
+        return ResponseVO.buildSuccess(document);
     }
 }
