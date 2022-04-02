@@ -13,7 +13,7 @@ public class MyApplicationRunner implements ApplicationRunner {
     ModelService modelService;
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
-        modelService.train();
+    public void run(ApplicationArguments args) {
+        System.out.println(modelService.train());
     }
 }

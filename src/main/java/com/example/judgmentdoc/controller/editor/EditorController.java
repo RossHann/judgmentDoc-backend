@@ -47,9 +47,10 @@ public class EditorController {
 
     @ApiOperation("检验裁判文书")
     @PostMapping("/check")
-    public ResponseVO check(@RequestParam(value = "text", required = true) String text) {
+    public ResponseVO check(@RequestParam(value = "text") String text,
+                            @RequestParam(value = "crime", defaultValue = "traffic") String crime) {
         try {
-            return editorService.check(text);
+            return editorService.check(text, crime);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseVO.buildFailure(CHECK_ERROR);

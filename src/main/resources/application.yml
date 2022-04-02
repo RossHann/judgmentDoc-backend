@@ -39,4 +39,4 @@ directory:
 
 model:
   name: model
-  url: http://localhost:8000/model
+  url: http://localhost:8000/api/model
