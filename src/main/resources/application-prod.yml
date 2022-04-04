@@ -1,6 +1,16 @@
 spring:
   datasource:
-    url: #部署数据库地址
+    url: jdbc:mysql://106.15.121.37:3306/JudgmentDoc?useSSL=false&rewriteBatchedStatements=true&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
     username: root
-    password: root
+    password: 123456
     driver-class-name: com.mysql.jdbc.Driver
+
+directory:
+  static:
+    fonts:
+      simsun: /home/judgmentdoc/backend/src/main/resources/static/fonts/simsun.ttc,1
+  temporary: /home/judgmentdoc/backend/src/main/resources/temporary/
+
+model:
+  name: model
+  url: http://172.29.7.224:8000/api/model

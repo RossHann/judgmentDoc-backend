@@ -46,7 +46,7 @@ public class EditorController {
     }
 
     @ApiOperation("检验裁判文书")
-    @PostMapping("/check")
+    @GetMapping("/check")
     public ResponseVO check(@RequestParam(value = "text") String text,
                             @RequestParam(value = "crime", defaultValue = "traffic") String crime) {
         try {

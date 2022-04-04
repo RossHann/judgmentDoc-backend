@@ -15,4 +15,6 @@ public interface ArticleMapper {
     List<Catalog> getAllCatalog();
 
     Article getArticleById(Long id);
+
+    List<Article> getArticleListByIds(List<Long> ids);
 }

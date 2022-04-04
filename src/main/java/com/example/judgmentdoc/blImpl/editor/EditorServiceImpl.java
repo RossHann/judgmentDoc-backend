@@ -103,46 +103,42 @@ public class EditorServiceImpl implements EditorService {
 
     @Override
     public ResponseVO check(String text, String crime) {
-        List<Text> result = new ArrayList<>();
+        ResponseVO response = modelService.check(text, crime);
+        if (!response.getSuccess()) {  //检验失败
+            return ResponseVO.buildFailure(response.getMessage());
+        }
+        List<Map<String, Object>> textList = (ArrayList) response.getContent();
 
-        Map<String, Object> map = (LinkedHashMap) modelService.check(text, crime).getContent();
-        List<Map<String, Object>> textList = (ArrayList) map.get("textList");
-        int factCount = 0, conclusionCount = 0;
+        List<Text> texts = new ArrayList<>();
         for (Map<String, Object> textMap : textList) {
-            Text tmp = null;
-            if ((int) textMap.get("type") == 0) {
-                tmp = new Text();
+            Text curText = null;
+            if ((int) textMap.get("type") == 0) {  //普通文本
+                curText = new Text();
             } else {
-                if ((int) textMap.get("type") == 1) {
-                    factCount++;
-                    tmp = new Fact();
-                    ((Fact) tmp).setCount(factCount);
-                } else if ((int) textMap.get("type") == 2) {
-                    tmp = new Law();
-                    ((Law) tmp).setArticle(articleMapper.getArticleById(Long.valueOf(textMap.get("articleId").toString())));
-                } else if ((int) textMap.get("type") == 3) {
-                    conclusionCount++;
-                    tmp = new Conclusion();
-                    ((Conclusion) tmp).setCount(conclusionCount);
+                if ((int) textMap.get("type") == 1) {  //事实
+                    curText = new Fact();
+                    ((Fact) curText).setCount((int) textMap.get("count"));
+                    List<Long> needs = (ArrayList<Long>) textMap.get("needs");
+                    if (needs.size() > 0) {
+                        ((Fact) curText).setNeeds(articleMapper.getArticleListByIds(needs));
+                    }
+                } else if ((int) textMap.get("type") == 2) {  //法条
+                    curText = new Law();
+                    ((Law) curText).setArticle(articleMapper.getArticleById(Long.valueOf(textMap.get("articleId").toString())));
+                } else if ((int) textMap.get("type") == 3) {  //结论
+                    curText = new Conclusion();
+                    ((Conclusion) curText).setCount((int) textMap.get("count"));
                 }
                 for (String relation : (ArrayList<String>) textMap.get("relations")) {
-                    tmp.addRelation(relation);
+                    curText.addRelation(relation);
                 }
             }
-            assert tmp != null;
-            tmp.setId((String) textMap.get("id"));
-            tmp.setContent((String) textMap.get("content"));
-            result.add(tmp);
+            assert curText != null;
+            curText.setId((String) textMap.get("id"));
+            curText.setContent((String) textMap.get("content"));
+            texts.add(curText);
         }
 
-        CheckResultVO checkResultVO = new CheckResultVO();
-
-        checkResultVO.setAccuracy((int)map.get("accuracy"));
-        checkResultVO.setFactLess((int)map.get("factLess"));
-        checkResultVO.setLawLess((int)map.get("lawLess"));
-        checkResultVO.setLawError((int)map.get("lawError"));
-        checkResultVO.setTexts(result);
-
-        return ResponseVO.buildSuccess(checkResultVO);
+        return ResponseVO.buildSuccess(texts);
     }
 }
