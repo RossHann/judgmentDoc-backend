@@ -34,8 +34,8 @@ aliyun:
 directory:
   static:
     fonts:
-      simsun: D:/judgmentDoc/backend/src/main/resources/static/fonts/simsun.ttc,1
-  temporary: D:/judgmentDoc/backend/src/main/resources/temporary/
+      simsun: /Users/russellhan/Documents/GitHub/judgmentDoc-backend/src/main/resources/static/fonts/simsun.ttc
+  temporary: /Users/russellhan/Documents/GitHub/judgmentDoc-backend/src/main/resources/temporary
 
 model:
   name: model
